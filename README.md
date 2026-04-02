@@ -132,34 +132,44 @@ df = pandas.read_csv()
 
 Quel est le type de l'objet `df`?
 ```
-
+data frame
 ```
 
 ##### Descriptions d'une table de données
 Que permettent les méthodes suivantes?
 ###### df.shape
 ```
+(2024, 7)
 ```
 ###### df.head()
 ```
+.head : first 5 lines
 ```
 ###### df.tail()
 ```
+.tail : last 5 lines
 ```
 ###### df.columns
 ```
+.columns: names of columns and type of contents
+
 ```
 ###### df.dtypes
 ```
+.dtypes: type of contents of each column
+
 ```
 ###### df.info
 ```
+summary of a DataFrame, including the number of rows, columns, column names, data types, and how many non-missing values each column has.
 ```
 ###### df.describe()
 ```
+summary statistics: count, mean, standard deviation, min, max, and percentiles (25%, 50%, 75%).
 ```
 ###### df.dropna()
 ```
+a new DataFrame with all rows containing NaN removed.
 ```
 
 ##### Accès aux éléments d'une table de données
@@ -169,9 +179,15 @@ values = df[['Description', 'Gene Symbol']]
 ```
 
 Quel est le type de `values` ?
+```
+un pandas DataFrame
+```
 
 Verifiez si certaines méthodes de `DataFrame` lui sont applicables.
 Ce type supporte l'accès par indice et les slice `[a:b]`
+```
+Un DataFrame supporte l’accès par tranches [a:b] pour les lignes. L’accès direct par un entier df[i] renvoie une colonne si elle existe, pas une ligne.
+```
 
 ##### Accès indicé
 
@@ -179,17 +195,19 @@ On peut accéder aux valeurs du DataFrame via des indices ou plages d'indice. La
 Il y a différentes manières de le faire, l'utilisation de `.iloc[slice_ligne,slice_colonne]` constitue une des solutions les plus simples. N'oublions pas que shape permet d'obtenir les dimensions (lignes et colonnes) du DataFrame.
 ###### Acceder aux cinq premières lignes de toutes les colonnes
 ```python
-
+df.iloc[0:5, :]  # 5 premières lignes, toutes les colonnes
+# ou simplement:
+df.head(5)
 ```
 
 ###### Acceder à toutes les lignes de la dernière colonne
 ```python
-
+df.iloc[:, -1]   # avec iloc  : = toutes les lignes, -1 = dernière colonne
 ```
 
 ###### Acceder aux cinq premières lignes des colonnes 0, 2 et 3
 ```python
-
+df.iloc[0:5, [0, 2, 3]]  # lignes 0 à 4, colonnes 0, 2 et 3
 ```
 
 ##### Conversion de type
@@ -241,7 +259,8 @@ df.loc[ df['Gene Symbol'].isin(['fadR', 'arcA'] ) ]
 
 ##### 3. A partir de cette échantillon de ratio d'abondance,  estimez la moyenne $\mu$ et l'ecart-type $\sigma$ d'une loi normale.
 ```
-
+print(mu, sigma) :
+-0.6467130248461945 0.46723442417098815
 
 ```
 
@@ -258,8 +277,7 @@ scale = len(_)*dx # scale accordingly
 ax.plot(x, norm.pdf(x, mu, sigma)*scale) # compute theoritical PDF and draw it
 ```
 
-![Histogramme à inserez ici](histogram_log2FC.png "Title")
-
+![Histogram of Log2 Corrected Abundance Ratio](data/log2_histogram.png)
 ##### 5. Quelles remarques peut-on faire à l'observation de l'histogramme et de la loi théorique?
 
 ```
